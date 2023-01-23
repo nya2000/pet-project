@@ -10,11 +10,11 @@ const FimlList = ({
     lastContentIndex: number;
 }) => {
     const currentMoviesArray = useSelector(
-        (store: IinitialStore) => store.currentList
+        (store: IinitialStore) => store.reducer
     );
     return (
         <div className='filmList'>
-            {currentMoviesArray
+            {currentMoviesArray.currentList
                 .slice(firstContentIndex, lastContentIndex)
                 .map((film) => (
                     <FilmItem film={film} key={film.id} />

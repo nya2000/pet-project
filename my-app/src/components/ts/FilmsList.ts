@@ -1,6 +1,6 @@
 import { IfilmList } from '../interfaces/Interfaces';
 
-export const FilmsList: IfilmList[] = [
+export const FilmsList:IfilmList[] = [
     {
         adult: false,
         backdrop_path: '/qjGrUmKW78MCFG8PTLDBp67S27p.jpg',

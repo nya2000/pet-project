@@ -1,9 +1,10 @@
+import { IinitialStoreReducer } from '../components/interfaces/Interfaces';
 import { FilmsList } from '../components/ts/FilmsList';
 
-export const initialStore = {
+export const initialStore: IinitialStoreReducer = {
     initList: FilmsList,
     currentList: FilmsList,
-    sortBy: '',
+    sortBy: 'popularityDescending',
     genres: [],
     year: '',
 };

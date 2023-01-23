@@ -16,9 +16,35 @@ export interface IfilmList {
 }
 
 export interface IinitialStore {
+    reducer: {
+        initList: IfilmList[];
+        currentList: IfilmList[] ;
+        sortBy: correctValues;
+        genres: number[];
+        year: string;
+    };
+}
+
+export interface IinitialStoreReducer {
     initList: IfilmList[];
     currentList: IfilmList[];
     sortBy: string;
-    gendres: number[];
+    genres: number[];
     year: string;
 }
+
+export type SortOptionKeys =
+    | 'popularityDescending'
+    | 'popularityAscending'
+    | 'vote_averageDescending'
+    | 'vote_averageAscending'
+    | '2017'
+    | '2018'
+    | '2019'
+    | '2020';
+
+export type correctValues =
+    | 'popularity'
+    | 'popularity'
+    | 'vote_average'
+    | 'vote_average';
