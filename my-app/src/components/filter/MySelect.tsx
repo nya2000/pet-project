@@ -2,12 +2,12 @@ import { nanoid } from 'nanoid';
 import { SortOptionKeys } from '../interfaces/Interfaces';
 const MySelect = ({
     options,
-    onChange,
     value,
+    onChange,
 }: {
     options: { value: SortOptionKeys; name: string }[];
-    onChange: (year: SortOptionKeys) => void;
     value?: string;
+    onChange: (a: SortOptionKeys) => void;
 }) => {
     return (
         <div>

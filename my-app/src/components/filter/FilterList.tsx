@@ -1,16 +1,23 @@
 import { FilterListItem } from './FilterListItem';
 import { FilterListItems } from '../ts/FilterListItems';
 
-const FilterList = ({ onClick }: { onClick: (id: number) => void }) => {
+const FilterList = ({
+    setSortByGenres,
+    sortByGenresList,
+}: {
+    setSortByGenres: (id: number) => void;
+    sortByGenresList:number[]
+}) => {
     return (
         <div className='sortList'>
             <ul>
                 {FilterListItems.map((item) => (
                     <FilterListItem
-                        onClick={onClick}
                         filterName={item.name}
-                        id={item.id}
                         key={item.id}
+                        id={item.id}
+                        onChange={setSortByGenres}
+                        checkboxStatus={sortByGenresList}
                     />
                 ))}
             </ul>

@@ -1,6 +1,6 @@
-import { IfilmList } from "../interfaces/Interfaces";
+import { IfilmList } from '../interfaces/Interfaces';
 
-const FilmItem = ({ film }:{film:IfilmList}) => {
+const FilmItem = ({ film }: { film: IfilmList }) => {
     const imagePath = film.poster_path || film.backdrop_path;
     const filmPoster = `https://image.tmdb.org/t/p/w500/${imagePath}`;
 

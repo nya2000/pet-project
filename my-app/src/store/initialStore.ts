@@ -4,7 +4,7 @@ import { FilmsList } from '../components/ts/FilmsList';
 export const initialStore: IinitialStoreReducer = {
     initList: FilmsList,
     currentList: FilmsList,
-    sortBy: 'popularityDescending',
+    sortBy: '',
     genres: [],
     year: '',
 };

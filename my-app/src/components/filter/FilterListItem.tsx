@@ -1,15 +1,23 @@
 const FilterListItem = ({
     filterName,
-    onClick,
     id,
+    onChange,
+    checkboxStatus,
 }: {
     filterName: string;
     id: number;
-    onClick: (id: number) => void;
+    onChange: (id: number) => void;
+    checkboxStatus: number[];
 }) => {
     return (
         <li>
-            <input type='checkbox' id='' name='' onChange={() => onClick(id)} />
+            <input
+                type='checkbox'
+                id=''
+                name=''
+                onChange={() => onChange(id)}
+                checked={checkboxStatus.includes(id)}
+            />
             <label htmlFor='/'>{filterName}</label>
         </li>
     );

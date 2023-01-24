@@ -1,33 +1,110 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable react-hooks/exhaustive-deps */
+import { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { format } from 'date-fns';
 import { FilterList } from './FilterList';
 import { PageSelector } from './PageSelector';
-
 import MySelect from './MySelect';
-import { useSelector } from 'react-redux';
-import { IinitialStore, SortOptionKeys } from '../interfaces/Interfaces';
+import {
+    correctValues,
+    IinitialStore,
+    SortOptionKeys,
+} from '../interfaces/Interfaces';
+import { correctSortValue } from '../const/const';
 
 const Filter = ({
     nextPage,
     prevPage,
     currentPage,
     totalPages,
-    sortByYear,
-    sortByDetails,
-    SortByGenres,
 }: {
     nextPage: () => void;
     prevPage: () => void;
     currentPage: number;
     totalPages: number;
-    sortByYear: (year: SortOptionKeys) => void;
-    sortByDetails: (a: SortOptionKeys) => void;
-    SortByGenres: (id: number) => void;
 }) => {
-    const selectedYear = useSelector(
-        (store: IinitialStore) => store.reducer.year
+    const reduxStore = useSelector((store: IinitialStore) => store.reducer);
+    const dispatch = useDispatch();
+
+    const [sortByDate, setSortByDate] = useState<SortOptionKeys>('2020');
+    const [sortByDetails, setSortByDetails] = useState<SortOptionKeys>(
+        'popularityDescending'
     );
-    const selectedDetails = useSelector(
-        (store: IinitialStore) => store.reducer.sortBy
-    );
+    const [sortByGenresList, setSortByGenresList] = useState<number[]>([]);
+
+    function setGenresFilter(id: number) {
+        if (sortByGenresList.includes(id)) {
+            setSortByGenresList(sortByGenresList.filter((item) => item !== id));
+        } else {
+            setSortByGenresList([...sortByGenresList, id]);
+        }
+    }
+
+    function checkTypeFiltration() {
+        if (sortByDetails.includes('Descending')) {
+            correctSortValue.correntValue = sortByDetails.slice(
+                0,
+                -10
+            ) as correctValues;
+            correctSortValue.isDescending = true;
+        } else {
+            correctSortValue.correntValue = sortByDetails.slice(
+                0,
+                -9
+            ) as correctValues;
+            correctSortValue.isDescending = false;
+        }
+    }
+
+    function resetFiltres() {
+        setSortByDate('2020');
+        setSortByDetails('popularityDescending');
+        setSortByGenresList([]);
+    }
+
+    function sortMovies() {
+        checkTypeFiltration();
+        const sortedArray = reduxStore.initList
+            .sort((a, b) =>
+                correctSortValue.isDescending
+                    ? b[correctSortValue.correntValue] -
+                      a[correctSortValue.correntValue]
+                    : a[correctSortValue.correntValue] -
+                      b[correctSortValue.correntValue]
+            )
+            .filter(
+                (item) =>
+                    format(new Date(item.release_date), 'yyyy') === sortByDate
+            )
+            .filter((item) =>
+                sortByGenresList.length !== 0
+                    ? item.genre_ids.some((id) => sortByGenresList.includes(id))
+                    : item
+            );
+
+        dispatch({
+            type: 'ADD_FILTER',
+            payload: sortedArray,
+        });
+    }
+
+    useEffect(() => {
+        dispatch({ type: 'REFRESH_SORT_BY', payload: sortByDetails });
+        sortMovies();
+    }, [sortByDetails]);
+
+    useEffect(() => {
+        dispatch({ type: 'REFRESH_YEAR', payload: sortByDate });
+        sortMovies();
+    }, [sortByDate]);
+
+    useEffect(() => {
+        dispatch({ type: 'REFRESH_GENRES', payload: sortByGenresList });
+        sortMovies();
+    }, [sortByGenresList]);
+
     return (
         <div className='filterSection'>
             <span
@@ -35,14 +112,19 @@ const Filter = ({
             >
                 Фильтры:
             </span>
-            <div className='resetFiltres' style={{ marginTop: '12px' }}>
+
+            <div
+                className='resetFiltres'
+                style={{ marginTop: '12px' }}
+                onClick={resetFiltres}
+            >
                 <button>Сбросить все фильтры</button>
             </div>
             <div className='sortBy'>
                 <p>Сортировка по:</p>
                 <MySelect
-                    onChange={sortByDetails}
-                    value={selectedDetails}
+                    value={reduxStore.sortBy}
+                    onChange={setSortByDetails}
                     options={[
                         {
                             value: 'popularityDescending',
@@ -66,8 +148,8 @@ const Filter = ({
             <div className='sortBy'>
                 <p>Год релиза:</p>
                 <MySelect
-                    onChange={sortByYear}
-                    value={selectedYear}
+                    value={reduxStore.year}
+                    onChange={setSortByDate}
                     options={[
                         { value: '2017', name: '2017' },
                         { value: '2018', name: '2018' },
@@ -76,7 +158,10 @@ const Filter = ({
                     ]}
                 />
             </div>
-            <FilterList onClick={SortByGenres} />
+            <FilterList
+                setSortByGenres={setGenresFilter}
+                sortByGenresList={sortByGenresList}
+            />
             <PageSelector
                 nextPage={nextPage}
                 prevPage={prevPage}

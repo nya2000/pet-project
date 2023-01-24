@@ -5,6 +5,6 @@ const rootReducers = combineReducers({
     reducer,
 });
 
-const store = createStore(rootReducers)
+const store = createStore(rootReducers);
 
 export { store };
