@@ -4,6 +4,7 @@ import Filter from './filter/Filter';
 import Header from './header/Header';
 import { useSelector } from 'react-redux';
 import { IinitialStore } from './interfaces/Interfaces';
+import { Outlet } from 'react-router-dom';
 
 const KinoGo = () => {
     const reduxStore = useSelector((store: IinitialStore) => store.reducer);
@@ -23,7 +24,6 @@ const KinoGo = () => {
     return (
         <div>
             <Header />
-
             <div className='container'>
                 <Filter
                     nextPage={nextPage}
@@ -36,6 +36,7 @@ const KinoGo = () => {
                     lastContentIndex={lastContentIndex}
                 />
             </div>
+            <Outlet />
         </div>
     );
 };

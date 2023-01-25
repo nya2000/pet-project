@@ -1,4 +1,11 @@
+import { useDispatch, useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
+import { IinitialStore } from '../interfaces/Interfaces';
+
 const Header = () => {
+    const reduxStore = useSelector((store: IinitialStore) => store.reducer);
+    const dispatch = useDispatch();
+    console.log(reduxStore);
     return (
         <header className='header'>
             <div className='innerHeader'>
@@ -7,9 +14,23 @@ const Header = () => {
                         <a href='/'>Home</a>
                     </li>
                     <li>
-                        <a className='logIn' href='/'>
-                            Login
-                        </a>
+                        {reduxStore.isLogined ? (
+                            <button
+                                className='logOutButton'
+                                onClick={() =>
+                                    dispatch({
+                                        type: 'IS_LOGINED',
+                                        payload: false,
+                                    })
+                                }
+                            >
+                                Log Out
+                            </button>
+                        ) : (
+                            <Link className='logIn' to='/auth'>
+                                Log In
+                            </Link>
+                        )}
                     </li>
                 </ul>
             </div>

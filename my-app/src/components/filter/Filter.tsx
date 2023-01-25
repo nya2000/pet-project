@@ -33,7 +33,6 @@ const Filter = ({
         'popularityDescending'
     );
     const [sortByGenresList, setSortByGenresList] = useState<number[]>([]);
-
     function setGenresFilter(id: number) {
         if (sortByGenresList.includes(id)) {
             setSortByGenresList(sortByGenresList.filter((item) => item !== id));
@@ -158,6 +157,7 @@ const Filter = ({
                     ]}
                 />
             </div>
+           
             <FilterList
                 setSortByGenres={setGenresFilter}
                 sortByGenresList={sortByGenresList}

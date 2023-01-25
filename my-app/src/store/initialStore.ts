@@ -7,4 +7,5 @@ export const initialStore: IinitialStoreReducer = {
     sortBy: '',
     genres: [],
     year: '',
+    isLogined:false
 };

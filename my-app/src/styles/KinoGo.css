@@ -7,7 +7,6 @@
     list-style: none;
     text-decoration: none;
     font-family: 'Roboto', sans-serif;
-    color: #25282c;
 }
 body {
     background: linear-gradient(
@@ -60,6 +59,21 @@ body {
     flex-direction: row;
     flex-wrap: wrap;
     justify-content: space-around;
+}
+.logOutButton {
+    background-color: #29a745;
+    border-radius: 3px;
+    padding: 6px 12px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border: -0;
+    color: white;
+    font-weight: 300;
+}
+.logOutButton:hover {
+    cursor: pointer;
 }
 .pageSelector button {
     background-color: #017bff;

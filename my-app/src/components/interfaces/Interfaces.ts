@@ -21,6 +21,7 @@ export interface IinitialStoreReducer {
     sortBy: string;
     genres: number[];
     year: string;
+    isLogined: boolean;
 }
 
 export interface IinitialStore {
@@ -30,6 +31,7 @@ export interface IinitialStore {
         sortBy: correctValues;
         genres: number[];
         year: string;
+        isLogined: boolean;
     };
 }
 
@@ -46,3 +48,8 @@ export type correctValues =
     | 'vote_average'
     | 'vote_average';
 export type sortYears = '2017' | '2018' | '2019' | '2020';
+
+export interface IwrongAuth {
+    isWrongLogin: boolean;
+    isWrongPassword: boolean;
+}

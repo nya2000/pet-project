@@ -3,7 +3,7 @@ import { initialStore } from './initialStore';
 
 function reducer(
     state = initialStore,
-    action: { type: string; payload: correctValues  | [] }
+    action: { type: string; payload: correctValues | [] }
 ) {
     switch (action.type) {
         case 'ADD_FILTER':
@@ -14,6 +14,8 @@ function reducer(
             return { ...state, genres: action.payload };
         case 'REFRESH_YEAR':
             return { ...state, year: action.payload };
+        case 'IS_LOGINED':
+            return { ...state, isLogined: action.payload };
         default:
             return state;
     }
