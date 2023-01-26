@@ -156,8 +156,20 @@ const Filter = ({
                         { value: '2020', name: '2020' },
                     ]}
                 />
+                {reduxStore.isLogined ? (
+                    <MySelect
+                        value={reduxStore.year}
+                        onChange={setSortByDate}
+                        options={[
+                            { value: '2017', name: '2017' },
+                            { value: '2018', name: '2018' },
+                            { value: '2019', name: '2019' },
+                            { value: '2020', name: '2020' },
+                        ]}
+                    />
+                ) : null}
             </div>
-           
+
             <FilterList
                 setSortByGenres={setGenresFilter}
                 sortByGenresList={sortByGenresList}

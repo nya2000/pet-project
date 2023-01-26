@@ -16,6 +16,11 @@ function reducer(
             return { ...state, year: action.payload };
         case 'IS_LOGINED':
             return { ...state, isLogined: action.payload };
+        case 'ADD_FAVORITE_MOVIE':
+            return { ...state, favoriteMovies: action.payload };
+        case 'ADD_WATCH_LATER_MOVIE':
+            return { ...state, watchLaterMovies: action.payload };
+
         default:
             return state;
     }

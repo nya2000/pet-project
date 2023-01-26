@@ -22,6 +22,8 @@ export interface IinitialStoreReducer {
     genres: number[];
     year: string;
     isLogined: boolean;
+    favoriteMovies: number[];
+    watchLaterMovies: number[];
 }
 
 export interface IinitialStore {
@@ -32,6 +34,8 @@ export interface IinitialStore {
         genres: number[];
         year: string;
         isLogined: boolean;
+        favoriteMovies: number[];
+        watchLaterMovies: number[];
     };
 }
 

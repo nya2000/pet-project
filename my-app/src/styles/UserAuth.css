@@ -21,6 +21,7 @@
     color: white;
     gap: 8px;
     font-weight: 300;
+    border: 1px solid white;
 }
 
 .userAuth h1 {

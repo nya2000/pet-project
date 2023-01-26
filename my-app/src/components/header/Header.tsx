@@ -5,7 +5,17 @@ import { IinitialStore } from '../interfaces/Interfaces';
 const Header = () => {
     const reduxStore = useSelector((store: IinitialStore) => store.reducer);
     const dispatch = useDispatch();
-    console.log(reduxStore);
+
+    function logOut() {
+        if (reduxStore.isLogined) {
+            localStorage.setItem('isLogined', JSON.stringify(false));
+        }
+        dispatch({
+            type: 'IS_LOGINED',
+            paylaod: false,
+        });
+    }
+
     return (
         <header className='header'>
             <div className='innerHeader'>
@@ -15,15 +25,7 @@ const Header = () => {
                     </li>
                     <li>
                         {reduxStore.isLogined ? (
-                            <button
-                                className='logOutButton'
-                                onClick={() =>
-                                    dispatch({
-                                        type: 'IS_LOGINED',
-                                        payload: false,
-                                    })
-                                }
-                            >
+                            <button className='logOutButton' onClick={logOut}>
                                 Log Out
                             </button>
                         ) : (

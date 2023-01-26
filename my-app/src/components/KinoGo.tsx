@@ -8,7 +8,7 @@ import { Outlet } from 'react-router-dom';
 
 const KinoGo = () => {
     const reduxStore = useSelector((store: IinitialStore) => store.reducer);
-
+   
     const {
         firstContentIndex,
         lastContentIndex,

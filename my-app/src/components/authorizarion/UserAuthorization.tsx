@@ -6,7 +6,6 @@ import { useNavigate } from 'react-router-dom';
 import { IwrongAuth } from '../interfaces/Interfaces';
 import img from '../../assets/img/succesLogIn.png';
 import { useDispatch } from 'react-redux';
-import { useLocalStorage } from '../../hooks/useLocalStorage';
 
 const UserAuthorization = () => {
     const navigate = useNavigate();
@@ -22,7 +21,6 @@ const UserAuthorization = () => {
     });
     const [isSuccesedLogIn, setIsSuccesedLogIn] = useState(false);
     const [isLogined, setIsLogined] = useState<boolean>(false);
-    // const [isLogined, setIsLogined] = useLocalStorage('false', 'isLogined');
     const userName = 'nya2000';
     const password = 'mosica2000';
 
@@ -61,7 +59,10 @@ const UserAuthorization = () => {
     }
 
     useEffect(() => {
-        dispatch({ type: 'IS_LOGINED', payload: isLogined });
+        if (isLogined) {
+            dispatch({ type: 'IS_LOGINED', payload: true });
+            localStorage.setItem('isLogined', JSON.stringify(isLogined));
+        }
     }, [isLogined]);
 
     return (

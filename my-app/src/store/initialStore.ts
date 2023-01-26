@@ -7,5 +7,10 @@ export const initialStore: IinitialStoreReducer = {
     sortBy: '',
     genres: [],
     year: '',
-    isLogined:false
+    //Да так нельзя делать я знаю но я мучался пол дня и только так получилось...
+    isLogined: JSON.parse(localStorage.getItem('isLogined') as string),
+    favoriteMovies: JSON.parse(localStorage.getItem('favoriteFilms') as string)
+        ? JSON.parse(localStorage.getItem('favoriteFilms') as string)
+        : [],
+    watchLaterMovies: [],
 };
