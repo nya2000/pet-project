@@ -38,12 +38,14 @@ export interface IinitialStore {
         watchLaterMovies: number[];
     };
 }
-
 export type SortOptionKeys =
     | 'popularityDescending'
     | 'popularityAscending'
     | 'vote_averageDescending'
     | 'vote_averageAscending'
+    | 'favoriteFilms'
+    | 'watchLaterFilms'
+    | ''
     | sortYears;
 
 export type correctValues =

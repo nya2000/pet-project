@@ -12,5 +12,9 @@ export const initialStore: IinitialStoreReducer = {
     favoriteMovies: JSON.parse(localStorage.getItem('favoriteFilms') as string)
         ? JSON.parse(localStorage.getItem('favoriteFilms') as string)
         : [],
-    watchLaterMovies: [],
+    watchLaterMovies: JSON.parse(
+        localStorage.getItem('watchLaterFilms') as string
+    )
+        ? JSON.parse(localStorage.getItem('watchLaterFilms') as string)
+        : [],
 };

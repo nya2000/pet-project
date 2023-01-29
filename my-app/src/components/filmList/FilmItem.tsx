@@ -1,24 +1,32 @@
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { IfilmList, IinitialStore } from '../interfaces/Interfaces';
 
 const FilmItem = ({ film }: { film: IfilmList }) => {
     const imagePath = film.poster_path || film.backdrop_path;
     const filmPoster = `https://image.tmdb.org/t/p/w500/${imagePath}`;
 
-    const navigate = useNavigate();
     const dispatch = useDispatch();
     const reduxStore = useSelector((store: IinitialStore) => store.reducer);
 
     function addFavoriteFilm() {
-        dispatch({
-            type: 'ADD_FAVORITE_MOVIE',
-            payload: [...reduxStore.favoriteMovies, film.id],
-        });
+        if (reduxStore.favoriteMovies.includes(film.id)) {
+            dispatch({
+                type: 'ADD_FAVORITE_MOVIE',
+                payload: reduxStore.favoriteMovies.filter(
+                    (item) => item !== film.id
+                ),
+            });
+        } else {
+            dispatch({
+                type: 'ADD_FAVORITE_MOVIE',
+                payload: [...reduxStore.favoriteMovies, film.id],
+            });
+        }
     }
     useEffect(() => {
-        if (reduxStore.favoriteMovies.length !== 0) {
+        if (reduxStore.favoriteMovies) {
             localStorage.setItem(
                 'favoriteFilms',
                 JSON.stringify(reduxStore.favoriteMovies)
@@ -26,13 +34,28 @@ const FilmItem = ({ film }: { film: IfilmList }) => {
         }
     }, [reduxStore.favoriteMovies]);
     function addWatchLaterFilm() {
-        dispatch({
-            type: 'ADD_WATCH_LATER_MOVIE',
-            payload: [...reduxStore.watchLaterMovies, film.id],
-        });
+        if (reduxStore.watchLaterMovies.includes(film.id)) {
+            dispatch({
+                type: 'ADD_WATCH_LATER_MOVIE',
+                payload: reduxStore.watchLaterMovies.filter(
+                    (item) => item !== film.id
+                ),
+            });
+        } else {
+            dispatch({
+                type: 'ADD_WATCH_LATER_MOVIE',
+                payload: [...reduxStore.watchLaterMovies, film.id],
+            });
+        }
     }
-    console.log(reduxStore.favoriteMovies);
-    console.log(reduxStore.watchLaterMovies);
+    useEffect(() => {
+        if (reduxStore.watchLaterMovies.length !== 0) {
+            localStorage.setItem(
+                'watchLaterFilms',
+                JSON.stringify(reduxStore.watchLaterMovies)
+            );
+        }
+    }, [reduxStore.watchLaterMovies]);
 
     return (
         <div className='filmItem box'>
@@ -178,9 +201,9 @@ const FilmItem = ({ film }: { film: IfilmList }) => {
                 <div className='filmTitle'>
                     <h4>{film.title}</h4>
                 </div>
-                <a className='aboutFilm' href='/'>
-                    Подробнее
-                </a>
+                <Link to={`/aboutFilm/${film.id}`}>
+                    <p className='aboutFilm'>Подробнее</p>
+                </Link>
             </div>
         </div>
     );

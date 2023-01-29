@@ -1,6 +1,6 @@
 import usePagination from '../hooks/usePagination';
-import FimlList from './filmList/FimlList';
-import Filter from './filter/Filter';
+import { FilmList } from './filmList/FilmList';
+import { Filter } from './filter/Filter';
 import Header from './header/Header';
 import { useSelector } from 'react-redux';
 import { IinitialStore } from './interfaces/Interfaces';
@@ -8,7 +8,7 @@ import { Outlet } from 'react-router-dom';
 
 const KinoGo = () => {
     const reduxStore = useSelector((store: IinitialStore) => store.reducer);
-   
+
     const {
         firstContentIndex,
         lastContentIndex,
@@ -17,7 +17,7 @@ const KinoGo = () => {
         page,
         totalPages,
     } = usePagination({
-        contentPerPage: 10,
+        contentPerPage: 6,
         count: reduxStore.currentList.length,
     });
 
@@ -31,7 +31,7 @@ const KinoGo = () => {
                     currentPage={page}
                     totalPages={totalPages}
                 />
-                <FimlList
+                <FilmList
                     firstContentIndex={firstContentIndex}
                     lastContentIndex={lastContentIndex}
                 />

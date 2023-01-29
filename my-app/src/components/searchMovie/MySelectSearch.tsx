@@ -1,22 +1,22 @@
 import { nanoid } from 'nanoid';
-import { SortOptionKeys } from '../interfaces/Interfaces';
-const MySelect = ({
+
+const MySelectSearch = ({
     options,
     value,
     onChange,
 }: {
-    options: { value: SortOptionKeys; name: string }[];
+    options: { value: number | string; name: string }[];
     value?: string;
-    onChange: (a: SortOptionKeys) => void;
+    onChange: (a: string) => void;
 }) => {
     return (
-        <div style={{ alignSelf: 'center' }}>
+        <div className='searchMovieFilter'>
             <select
                 name='selectFilter'
                 id='selectFilter'
                 value={value}
                 onChange={(event) =>
-                    onChange(event.target.value as SortOptionKeys)
+                    onChange(event.target.value)
                 }
             >
                 {options.map((item) => (
@@ -29,4 +29,4 @@ const MySelect = ({
     );
 };
 
-export default MySelect;
+export { MySelectSearch };

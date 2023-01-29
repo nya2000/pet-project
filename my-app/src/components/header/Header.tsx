@@ -21,7 +21,7 @@ const Header = () => {
             <div className='innerHeader'>
                 <ul className='navigation'>
                     <li>
-                        <a href='/'>Home</a>
+                        <Link to='/'>Home</Link>
                     </li>
                     <li>
                         {reduxStore.isLogined ? (

@@ -2,7 +2,8 @@ import { FilmItem } from './FilmItem';
 
 import { useSelector } from 'react-redux';
 import { IinitialStore } from '../interfaces/Interfaces';
-const FimlList = ({
+import { Outlet } from 'react-router-dom';
+const FilmList = ({
     firstContentIndex,
     lastContentIndex,
 }: {
@@ -19,8 +20,9 @@ const FimlList = ({
                 .map((film) => (
                     <FilmItem film={film} key={film.id} />
                 ))}
+            <Outlet />
         </div>
     );
 };
 
-export default FimlList;
+export { FilmList };

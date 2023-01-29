@@ -8,6 +8,8 @@ export const sortBy: ISortBy = {
     genres: [],
 };
 
+export const allFilms = '';
+
 export const correctSortValue = {
     correntValue: '' as correctValues,
     isDescending: undefined as boolean | undefined,

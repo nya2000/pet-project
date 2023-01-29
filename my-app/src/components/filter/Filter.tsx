@@ -12,7 +12,8 @@ import {
     IinitialStore,
     SortOptionKeys,
 } from '../interfaces/Interfaces';
-import { correctSortValue } from '../const/const';
+import { allFilms, correctSortValue } from '../const/const';
+import { Link } from 'react-router-dom';
 
 const Filter = ({
     nextPage,
@@ -29,6 +30,8 @@ const Filter = ({
     const dispatch = useDispatch();
 
     const [sortByDate, setSortByDate] = useState<SortOptionKeys>('2020');
+    const [sortFavorites, setSortFavorites] = useState('');
+
     const [sortByDetails, setSortByDetails] = useState<SortOptionKeys>(
         'popularityDescending'
     );
@@ -61,32 +64,96 @@ const Filter = ({
         setSortByDate('2020');
         setSortByDetails('popularityDescending');
         setSortByGenresList([]);
+        setSortFavorites('');
     }
 
     function sortMovies() {
         checkTypeFiltration();
-        const sortedArray = reduxStore.initList
-            .sort((a, b) =>
-                correctSortValue.isDescending
-                    ? b[correctSortValue.correntValue] -
-                      a[correctSortValue.correntValue]
-                    : a[correctSortValue.correntValue] -
-                      b[correctSortValue.correntValue]
-            )
-            .filter(
-                (item) =>
-                    format(new Date(item.release_date), 'yyyy') === sortByDate
-            )
-            .filter((item) =>
-                sortByGenresList.length !== 0
-                    ? item.genre_ids.some((id) => sortByGenresList.includes(id))
-                    : item
-            );
 
-        dispatch({
-            type: 'ADD_FILTER',
-            payload: sortedArray,
-        });
+        if (sortFavorites.length !== 0) {
+            const sortedArray =
+                sortFavorites === 'favoriteFilms'
+                    ? reduxStore.initList
+                          .sort((a, b) =>
+                              correctSortValue.isDescending
+                                  ? b[correctSortValue.correntValue] -
+                                    a[correctSortValue.correntValue]
+                                  : a[correctSortValue.correntValue] -
+                                    b[correctSortValue.correntValue]
+                          )
+                          .filter(
+                              (item) =>
+                                  format(
+                                      new Date(item.release_date),
+                                      'yyyy'
+                                  ) === sortByDate
+                          )
+                          .filter((item) =>
+                              sortByGenresList.length !== 0
+                                  ? item.genre_ids.some((id) =>
+                                        sortByGenresList.includes(id)
+                                    )
+                                  : item
+                          )
+                          .filter((item) =>
+                              reduxStore.favoriteMovies.includes(item.id)
+                          )
+                    : reduxStore.initList
+                          .sort((a, b) =>
+                              correctSortValue.isDescending
+                                  ? b[correctSortValue.correntValue] -
+                                    a[correctSortValue.correntValue]
+                                  : a[correctSortValue.correntValue] -
+                                    b[correctSortValue.correntValue]
+                          )
+                          .filter(
+                              (item) =>
+                                  format(
+                                      new Date(item.release_date),
+                                      'yyyy'
+                                  ) === sortByDate
+                          )
+                          .filter((item) =>
+                              sortByGenresList.length !== 0
+                                  ? item.genre_ids.some((id) =>
+                                        sortByGenresList.includes(id)
+                                    )
+                                  : item
+                          )
+                          .filter((item) =>
+                              reduxStore.watchLaterMovies.includes(item.id)
+                          );
+
+            dispatch({
+                type: 'ADD_FILTER',
+                payload: sortedArray,
+            });
+        } else {
+            const sortedArray = reduxStore.initList
+                .sort((a, b) =>
+                    correctSortValue.isDescending
+                        ? b[correctSortValue.correntValue] -
+                          a[correctSortValue.correntValue]
+                        : a[correctSortValue.correntValue] -
+                          b[correctSortValue.correntValue]
+                )
+                .filter(
+                    (item) =>
+                        format(new Date(item.release_date), 'yyyy') ===
+                        sortByDate
+                )
+                .filter((item) =>
+                    sortByGenresList.length !== 0
+                        ? item.genre_ids.some((id) =>
+                              sortByGenresList.includes(id)
+                          )
+                        : item
+                );
+            dispatch({
+                type: 'ADD_FILTER',
+                payload: sortedArray,
+            });
+        }
     }
 
     useEffect(() => {
@@ -103,6 +170,13 @@ const Filter = ({
         dispatch({ type: 'REFRESH_GENRES', payload: sortByGenresList });
         sortMovies();
     }, [sortByGenresList]);
+    useEffect(() => {
+        dispatch({ type: 'REFRESH_GENRES', payload: sortByGenresList });
+        sortMovies();
+    }, [sortByGenresList]);
+    useEffect(() => {
+        sortMovies();
+    }, [sortFavorites]);
 
     return (
         <div className='filterSection'>
@@ -118,6 +192,11 @@ const Filter = ({
                 onClick={resetFiltres}
             >
                 <button>Сбросить все фильтры</button>
+            </div>
+            <div className='resetFiltres' style={{ marginTop: '12px' }}>
+                <Link to='/search'>
+                    <button>Найти фильм</button>
+                </Link>
             </div>
             <div className='sortBy'>
                 <p>Сортировка по:</p>
@@ -156,15 +235,18 @@ const Filter = ({
                         { value: '2020', name: '2020' },
                     ]}
                 />
+
                 {reduxStore.isLogined ? (
                     <MySelect
-                        value={reduxStore.year}
-                        onChange={setSortByDate}
+                        value={sortFavorites}
+                        onChange={setSortFavorites}
                         options={[
-                            { value: '2017', name: '2017' },
-                            { value: '2018', name: '2018' },
-                            { value: '2019', name: '2019' },
-                            { value: '2020', name: '2020' },
+                            { value: allFilms, name: 'Все фильмы' },
+                            { value: 'favoriteFilms', name: 'Избранные' },
+                            {
+                                value: 'watchLaterFilms',
+                                name: 'Смотреть позже',
+                            },
                         ]}
                     />
                 ) : null}
@@ -184,4 +266,4 @@ const Filter = ({
     );
 };
 
-export default Filter;
+export { Filter };
