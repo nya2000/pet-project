@@ -1,0 +1,32 @@
+.search_movie {
+    position: absolute;
+    width: 1115px;
+    top: 70px;
+    left: 160px;
+    height: 790px;
+    display: flex;
+    justify-content: space-around;
+    color: white;
+    -webkit-backdrop-filter: blur(14px);
+}
+
+.searchMovieFilter {
+    align-self: center;
+}
+
+.filters {
+    display: flex;
+    flex-direction: column;
+}
+.filters .sortBy p {
+    margin-top: 20px;
+}
+.filters .sortBy {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 25px;
+    margin-top: 25px;
+}
+.result {
+    width: 402px;
+}

@@ -1,0 +1,374 @@
+.modalBackground {
+    width: 100vw;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    backdrop-filter: blur(5px);
+}
+.userAuth {
+    width: 450px;
+    height: 250px;
+    background-color: #28282e;
+    border-radius: 10px;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    gap: 8px;
+    font-weight: 300;
+    border: 1px solid white;
+}
+
+.userAuth h1 {
+    font-size: 50px;
+    font-weight: 300;
+}
+.userAuth button {
+    font-size: 18px;
+}
+.userAuth button {
+    display: inline-block;
+    background-color: #25282c;
+    padding: 0.5em 1.7em;
+    margin: 0 0.1em 0.1em 0;
+    border: 0.16em solid rgb(255, 255, 255);
+    border-radius: 2em;
+    box-sizing: border-box;
+    text-decoration: none;
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    color: #ffffff;
+    text-shadow: 0 0.04em 0.04em rgba(255, 255, 255, 0.253);
+    text-align: center;
+    transition: all 0.2s;
+}
+
+.userAuth button:hover {
+    color: black;
+    background-color: rgb(255, 255, 255);
+}
+.userAuth input::placeholder {
+    font-weight: 300;
+}
+.userAuth input {
+    font-weight: 300;
+    font-size: 19px;
+    margin: 5px;
+    color: white;
+}
+.userAuth form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.userAuth form input::placeholder {
+    opacity: 0;
+}
+
+.username-effect,
+.password-effect {
+    border: 0;
+    padding: 4px 0;
+    border-bottom: 1px solid #ccc;
+    background-color: transparent;
+}
+.username-effect,
+.password-effect:focus {
+    outline: none;
+    caret-color: white;
+}
+
+.loginUserName,
+.loginPassword {
+    position: relative;
+}
+.loginPassword {
+    margin-bottom: 10px;
+}
+
+.username-effect {
+    border: 0;
+    padding: 4px 0;
+    border-bottom: 1px solid #ccc;
+    background-color: transparent;
+}
+
+.username-effect ~ .focus-border-username {
+    position: absolute;
+    bottom: 5px;
+    left: 5px;
+    width: 0;
+    height: 2px;
+    background-color: #4caf50;
+    transition: 0.4s;
+}
+.username-effect:focus ~ .focus-border-username,
+.has-content.username-effect ~ .focus-border-username {
+    width: 95.5%;
+    transition: 0.4s;
+}
+.username-effect:valid ~ .focus-border-username,
+.has-content.username-effect ~ .focus-border-username {
+    width: 95.5%;
+    transition: 0.4s;
+}
+.username-effect ~ label.username {
+    position: absolute;
+    left: -65px;
+    width: 100%;
+    top: 12px;
+    color: #aaa;
+    transition: 0.3s;
+    z-index: -1;
+    letter-spacing: 0.5px;
+}
+.username-effect:focus ~ label.username,
+.has-content.username-effect ~ label.username {
+    top: -5px;
+    left: -75px;
+    font-size: 12px;
+    color: #4caf50;
+    transition: 0.3s;
+}
+.username-effect:valid ~ label.username,
+.has-content.username-effect ~ label.username {
+    top: -5px;
+    left: -75px;
+    font-size: 12px;
+    color: #4caf50;
+    transition: 0.3s;
+}
+
+.password-effect ~ .focus-border-password {
+    position: absolute;
+    bottom: 5px;
+    left: 5px;
+    width: 0;
+    height: 2px;
+    background-color: #4caf50;
+    transition: 0.4s;
+}
+.password-effect:focus ~ .focus-border-password,
+.has-content.password-effect ~ .focus-border-password {
+    width: 95.5%;
+    transition: 0.4s;
+}
+.password-effect:valid ~ .focus-border-password,
+.has-content.password-effect ~ .focus-border-password {
+    width: 95.5%;
+    transition: 0.4s;
+}
+.password-effect ~ label.password {
+    position: absolute;
+    left: -65px;
+    width: 100%;
+    top: 12px;
+    color: #aaa;
+    transition: 0.3s;
+    z-index: -1;
+    letter-spacing: 0.5px;
+}
+.password-effect:focus ~ label.password,
+.has-content.password-effect ~ label.password {
+    top: -5px;
+    left: -75px;
+    font-size: 12px;
+    color: #4caf50;
+    transition: 0.3s;
+}
+.password-effect:valid ~ label.password,
+.has-content.password-effect ~ label.password {
+    top: -5px;
+    left: -75px;
+    font-size: 12px;
+    color: #4caf50;
+    transition: 0.3s;
+}
+
+.loginPassword.wrongPass {
+    animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+}
+.loginUserName.wrongPass {
+    animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+    transform: translate3d(0, 0, 0);
+    backface-visibility: hidden;
+    perspective: 1000px;
+}
+
+@keyframes shake {
+    10%,
+    90% {
+        transform: translate3d(-1px, 0, 0);
+    }
+
+    20%,
+    80% {
+        transform: translate3d(2px, 0, 0);
+    }
+
+    30%,
+    50%,
+    70% {
+        transform: translate3d(-4px, 0, 0);
+    }
+
+    40%,
+    60% {
+        transform: translate3d(4px, 0, 0);
+    }
+}
+
+/* /////////////////////////////////////////////////////////////////////////////////////////// */
+
+#toast {
+    visibility: hidden;
+    max-width: 50px;
+    height: 50px;
+    /*margin-left: -125px;*/
+    margin: auto;
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    border-radius: 30px;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    right: 0;
+    bottom: -60px;
+    font-size: 17px;
+    white-space: nowrap;
+    display: flex;
+    width: 20p;
+    overflow: hidden;
+}
+#toast #img {
+    width: 50px;
+    height: 50px;
+
+    float: left;
+
+    border-radius: 30px;
+    box-sizing: border-box;
+
+    color: #fff;
+}
+#toast #desc {
+    color: #fff;
+
+    padding: 16px;
+
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+#toast.show {
+    visibility: visible;
+    -webkit-animation: fadein 0.5s, expand 0.5s 0.5s, stay 3s 1s, shrink 0.5s 2s,
+        fadeout 0.5s 2.5s;
+    animation: fadein 0.5s, expand 0.5s 0.5s, stay 3s 1s, shrink 0.5s 4s,
+        fadeout 0.5s 4.5s;
+}
+
+@-webkit-keyframes fadein {
+    from {
+        bottom: 0;
+        opacity: 0;
+    }
+    to {
+        bottom: -60px;
+        opacity: 1;
+    }
+}
+
+@keyframes fadein {
+    from {
+        bottom: 0;
+        opacity: 0;
+    }
+    to {
+        bottom: -60px;
+        opacity: 1;
+    }
+}
+
+@-webkit-keyframes expand {
+    from {
+        min-width: 50px;
+    }
+    to {
+        min-width: 310px;
+    }
+}
+
+@keyframes expand {
+    from {
+        min-width: 50px;
+    }
+    to {
+        min-width: 310px;
+    }
+}
+@-webkit-keyframes stay {
+    from {
+        min-width: 310px;
+    }
+    to {
+        min-width: 310px;
+    }
+}
+
+@keyframes stay {
+    from {
+        min-width: 310px;
+    }
+    to {
+        min-width: 310px;
+    }
+}
+@-webkit-keyframes shrink {
+    from {
+        min-width: 310px;
+    }
+    to {
+        min-width: 50px;
+    }
+}
+
+@keyframes shrink {
+    from {
+        min-width: 310px;
+    }
+    to {
+        min-width: 50px;
+    }
+}
+
+@-webkit-keyframes fadeout {
+    from {
+        bottom: -60px;
+        opacity: 1;
+    }
+    to {
+        bottom: 0px;
+        opacity: 0;
+    }
+}
+
+@keyframes fadeout {
+    from {
+        bottom: -60px;
+        opacity: 1;
+    }
+    to {
+        bottom: 0px;
+        opacity: 0;
+    }
+}

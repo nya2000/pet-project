@@ -1,0 +1,38 @@
+.filmDetails_container {
+    position: absolute;
+    width: 1131px;
+    left: 150px;
+    top: 60px;
+    height: 700px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    color: white;
+}
+.filmDetails_content {
+    width: inherit;
+}
+
+.filmBackGround > img {
+    width: -webkit-fill-available;
+    filter: blur(4px);
+    -webkit-filter: blur(4px);
+    height: 810px;
+}
+
+.film_poster_header {
+    position: absolute;
+    top: 0;
+    display: flex;
+    justify-content: space-between;
+    padding: 60px 60px;
+}
+.film_poster_header img {
+    width: 250px;
+}
+.film_details_header {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    padding: 0 15px;
+}
