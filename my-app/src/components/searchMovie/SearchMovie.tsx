@@ -42,7 +42,7 @@ const SearchMovie = () => {
     function removeCurrentFilm() {
         setSortedArray(sortedArray.filter((iem, index) => index !== 0));
     }
-    console.log(sortedArray);
+
     return (
         <div className='search_movie'>
             <div className='filters'>
